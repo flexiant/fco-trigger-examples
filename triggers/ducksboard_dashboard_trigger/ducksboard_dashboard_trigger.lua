@@ -1,3 +1,6 @@
+-- (c) 2013 Flexiant Ltd
+-- Released under the Apache 2.0 Licence - see LICENCE for details
+
 function scheduled_ducksboard_update(p)
 	if(p == nil) then
 		return {

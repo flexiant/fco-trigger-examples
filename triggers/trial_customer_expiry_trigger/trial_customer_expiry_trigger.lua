@@ -1,3 +1,6 @@
+-- (c) 2013 Flexiant Ltd
+-- Released under the Apache 2.0 Licence - see LICENCE for details
+
 function trial_customer_expiry_trigger(p)
 	if(p == nil) then
 		return {
