@@ -1,0 +1,8 @@
+ServerDensity Monitoring
+	Automatically add servers to SeverDensity server monitoring system when sever is started for the first time.
+Required Keys
+	Key 1
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - SERVER_DENSITY_API_TOKEN
+		Value - [Your ServerDensity API token]

@@ -1,0 +1,8 @@
+Signup-Login Email Alert
+	Sends out email whenever a new customer is created and/or whenever a customer logins to FCO.
+Required Keys
+	Key 1
+		Key Type - Billing Entity Key	
+		Resource - Billing Entity
+		Key Name - SIGNUP_LOGIN_EMAIL
+		Value - [Email address to which notifications will be sent to]

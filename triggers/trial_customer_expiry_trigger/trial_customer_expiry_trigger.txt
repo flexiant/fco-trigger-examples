@@ -1,0 +1,8 @@
+Trial Customer Expiry
+	Automatic expiry of new user trial accounts and servers after certain time period if credit card not added.
+Required Keys
+	Key 1
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - TRIAL
+		Value - [Number representing how many days can customer be a trial]

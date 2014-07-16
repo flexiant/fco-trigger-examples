@@ -1,0 +1,8 @@
+Auto Start
+	This trigger will automatically start up the server once they are created if they have certain resource key set.
+Required Keys
+	Key 1
+		Key Type - Customer Key	
+		Resource - Customer
+		Key Name - AUTO_START_SERVERS
+		Value -[Not Important]

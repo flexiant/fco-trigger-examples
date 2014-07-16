@@ -1,0 +1,10 @@
+BentoBox Custom Startup Order
+	Enable servers within a bento box to be booted in a certain order for application compatability by setting up the key on each server.
+Required Keys
+	Key 1
+		Key Type - Customer Key
+		Resource - Server (VM)
+		Key Name - START_SERVER
+		Value - [Number representing order in which servers will boot (e.g. 1, 2, 3, 4, 5, 6…)]
+Additional Notes
+	You should set this key to all Servers (VM) in Bento box for this trigger to properly work.

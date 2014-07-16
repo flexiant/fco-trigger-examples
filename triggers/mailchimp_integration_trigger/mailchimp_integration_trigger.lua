@@ -8,30 +8,57 @@ function mailchimp_activation_trigger(p)
 			name = "MailChimp customer activation trigger",
 			description = "MailChimp add cutomer to mailing list upon customer activation",
 			priority = 0,
-			triggerType = "POST_CREATE",
-			triggerOptions = {"CUSTOMER","SERVER","DEPLOYMENT_INSTANCE"},
+			triggerType = "POST_JOB_STATE_CHANGE",
+			triggerOptions = {"SUCCESSFUL"},
 			api = "TRIGGER",
 			version = 1,
 		}
 	end
 
-	print("========== MAILCHIMP TRIGGER ACTIVATION ==========")
+	local jobType = p.input:getJobType():toString()
+	local mailChimpList
+	if(jobType == "CREATE_SERVER") then
+		mailChimpList = "MAILCHIMP_SERVER_LIST"
+	elseif (jobType == "CREATE_CUSTOMER") then
+		mailChimpList = "MAILCHIMP_CUSTOMER_LIST"
+	elseif (jobType == "CREATE_DEPLOYMENT_INSTANCE") then
+		mailChimpList = "MAILCHIMP_BENTOBOX_LIST"
+	else
+		return { exitState = "SUCCESS" }
+	end
 
-	local userUUID = p.user:getResourceUUID()
+	local userUUID = p.input:getUserUUID()
+	local beUUID = getbeUUID(userUUID)
 	local userData = getUserData(userUUID)
-	local mailchimpToken = checkBeKey(p.beUUID,'MAILCHIMP_TOKEN')
+	local mailchimpToken = checkBeKey(beUUID,'MAILCHIMP_TOKEN')
 	if(mailchimpToken.success) then
+		print("========== MAILCHIMP TRIGGER ACTIVATION ==========")
+
 		local apiToken = splitString(mailchimpToken.keyValue, '-')
 		local apiUrl = "https://" .. apiToken[2] .. ".api.mailchimp.com/2.0/lists/subscribe"
-		local listID = checkBeKey(p.beUUID,"MAILCHIMP_LIST_ID")
+		local listID = checkBeKey(beUUID, mailChimpList)
 		local params = {apikey = apiToken[1], id= listID.keyValue, email = {email = userData.data.email},merge_vars = {fname = userData.data.firstName, lname = userData.data.lastName}}
 		local json = new("JSON")
 		params = json:encode(params)
 		print('Adding user:' .. userUUID .. ' to MailChimp Subscription list.')
 		generate_http_request('',params,apiUrl)
+		print("========== MAILCHIMP TRIGGER ACTIVATION COMPLETE ==========")
 	end
-	print("========== MAILCHIMP TRIGGER ACTIVATION COMPLETE ==========")
+
 	return { exitState = "SUCCESS" }
+end
+
+function getbeUUID(userUUID)
+	local searchFilter = new("SearchFilter")
+	local filterCondition1 = new("FilterCondition")
+	filterCondition1:setField('resourceuuid')
+	filterCondition1:setValue({userUUID})
+	filterCondition1:setCondition(new("Condition","IS_EQUAL_TO"))
+	searchFilter:addCondition(filterCondition1)
+	local user = adminAPI:listResources(searchFilter,nil,new("ResourceType","USER"))
+	if(user:getList():size() > 0) then
+		return user:getList():get(0):getBillingEntityUUID()
+	end
 end
 
 function getUserData(userUUID)
@@ -98,10 +125,10 @@ function generate_http_request(token,params,url)
 	local returnString = ""
 	local httpcode = ""
 	if (httpconn:post(params,
-	function (val)
-		returnString = returnString .. val
-		return true
-	end)
+			function (val)
+				returnString = returnString .. val
+				return true
+			end)
 	) then
 	else
 		local error , message = httpconn:getLastError()

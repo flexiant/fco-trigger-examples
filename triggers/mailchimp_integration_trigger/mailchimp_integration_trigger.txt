@@ -1,0 +1,13 @@
+MailChimp Integraion
+	Whenever a new customer is activated, or creates their first server, or their first bento box, this trigger will add them to a custom mailchimp mailing list.  The mailing list details is configurable using Customer keys.
+Required Keys
+	Key 1
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - MAILCHIMP_TOKEN
+		Value - [Your MAILCHIMP API Token]
+	Key 2
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - MAILCHIMP_LIST_ID
+		Value - [List ID of the MailChimp Subscription List]

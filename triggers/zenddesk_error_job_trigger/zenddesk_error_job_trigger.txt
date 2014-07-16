@@ -1,0 +1,20 @@
+ZenDesk Error Job Reports
+	Each time a job fails in FCO, this trigger creates a ticket for it in ZenDesk.
+Required Keys
+	Key 1
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - ZENDESK_API_TOKEN
+		Value - [Your ZenDesk API Token]
+	Key 2
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - ZENDESK_DOMAIN_NAME
+		Value - [Subdomain Name registered at ZenDesk]
+	
+	Key 3
+		Key Type - Billing Entity Key
+		Resource - Customer
+		Key Name - ZENDESK_PRIORITY_KEY
+		Value - ["low", "normal", "high", "urgent"]
+		

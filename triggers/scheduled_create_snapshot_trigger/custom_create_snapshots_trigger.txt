@@ -1,0 +1,14 @@
+Scheduled Create Snapshot
+	Scheduled snapshots based on a customer system key to dictate the schedule.
+Required Keys
+	Key 1
+		Key Type - Customer Key
+		Resource - Server, Disk
+		Key Name - AUTO_SNAPSHOTS
+		Value - [Number representing how regularly snapshots will be taken (Hours)]
+	Key 2
+		Key Type - Customer Key
+		Resource - Server, Disk
+		Key Name - MAX_SNAPSHOTS
+		Value - [Number representing how many snapshots of the same server/disk will be kept (0 or key not set for inf.)]
+		

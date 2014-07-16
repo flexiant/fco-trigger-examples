@@ -1,0 +1,15 @@
+HipChat Messaging Integration
+	Send notifications of new customer activations, new server creations and new invoices created to a Hipchat channel.
+Required Keys
+	Key 1
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - HIPCHAT_API_TOKEN
+		Value - [Your HipChat API Token (Administrator one)]
+	Key 2
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - HIPCHAT_ROOM_ID
+		Value - [Your HipChat API Token (Administrator one)]
+Additional Notes
+	Notification Token doesn’t seem to work. Administrator token should be used instead.

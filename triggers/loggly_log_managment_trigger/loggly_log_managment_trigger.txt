@@ -1,0 +1,8 @@
+Loggly Log Management
+	Automatic independent logging and analysis of important events for audit and stat analysis purposes.
+Required Keys
+	Key 1
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - LOGGLY_CUSTOMER_TOKEN
+		Value - [Your LOGGLY Customer API token]

@@ -1,0 +1,8 @@
+Automatic Server Shutdown
+	Automatic sever shutdown based on the Customer key set on the server. Good for test/dev for internally facing services etc.
+Required Keys
+	Key 1
+		Key Type - Customer Key	
+		Resource - Server
+		Key Name - SHUTDOWN_AFTER
+		Value - [Minutes after which server will shut down]

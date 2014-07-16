@@ -1,0 +1,4 @@
+Mixpanel Stats
+	This trigger will log admin api calls, user api calls, jobs, units used per BE, and units used per customer to Mixpanel. Mixpanel can then be used to track and analyse usage patterns.
+Configuration
+	Edit the lua file and set MIXPANEL_USER_TOKEN to the project token provided on the Mixpanel website

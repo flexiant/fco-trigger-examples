@@ -1,0 +1,30 @@
+Ducksboard Dashboard Management
+	Trigger that automatically posts to a Duckboard page with the number of servers running, number of customers, customer activations in the last 24 hours, invoices raised in the last 24 hours.
+Required Keys
+	Key 1
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - DUCKSBOARD_API_TOKEN
+		Value - [Your API Token provided by Ducksboard]
+	Key 2
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - SERVER_DATA_URL
+		Value - [URL to which Server Count should be sent]
+	Key 3
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - CUSTOMER_DATA_URL
+		Value - [URL to which Customer Count should be sent]
+	Key 4
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - NEW_CUSTOMER_DATA_URL
+		Value - [URL to which New Customer Count should be sent]
+	Key 5
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - NEW_INVOICE_DATA_URL
+		Value - [URL to which New Invoices Count should be sent]
+Additional Notes
+	All URLs and API token are provided by Ducksboard

@@ -1,0 +1,8 @@
+Zapier Job Reports
+	Sends a list of all job notifications and their relevant data to a web hook for Zapier to be able to parse and manipulate the data.
+Required Keys
+	Key 1
+		Key Type - Billing Entity Key
+		Resource - Billing Entity
+		Key Name - ZAPIER_WEB_HOOK_URL
+		Value -[Full zapier URL Web Hook]

@@ -1,0 +1,23 @@
+Twilio SMS Alerting
+	Automatic SMS messages via Twilio if server starts fail.
+Required Keys\
+	Key 1
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - TWILIO_ACCOUNT_SID
+		Value - [Your Twilio SID]
+	Key 2
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - TWILIO_ACCOUNT_TOKEN
+		Value - [Your Twilio Account Token]
+	Key 3
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - TWILIO_TO_NUMBER
+		Value - [Number to which notification will sent]
+	Key 4
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - TWILIO_FROM_NUMBER
+		Value - [One of the registered numbers on Twilio from which SMS will be sent]

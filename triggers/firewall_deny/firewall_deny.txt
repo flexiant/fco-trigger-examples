@@ -1,0 +1,10 @@
+Firewall Deny All Rule
+	Automatically add deny all firewalls to each VM at create time, through creating a denyall firewall the first time, and adding additional servers to that existing template thereafter.
+Required Keys
+	Key 1
+		Key Type - Customer Key
+		Resource - Customer
+		Key Name - DENY_ALL_FIREWALL
+		Value - [Not Important]
+Additional Notes
+	Firewall used for this template is named ‘DENY_ALL_FIREWALL_TEMPLATE’ and this name should be available for trigger to create a new firewall (if it doesn’t already exist).

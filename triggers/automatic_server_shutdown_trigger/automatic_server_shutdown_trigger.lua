@@ -14,7 +14,7 @@ function automatic_server_shutdown_trigger(p)
 			version = 1,
 		}
 	end
-	
+
 	print("======== AUTOMATIC SERVER SHUTDOWN =========")
 	local serverList = getServerList()
 	for i = 0, serverList.data:size() -1 ,1 do
@@ -22,6 +22,14 @@ function automatic_server_shutdown_trigger(p)
 	end
 	print("======== AUTOMATIC SERVER SHUTDOWN COMPLETE=========")
 	return { exitState = "SUCCESS" }
+end
+
+function deleteServer(server)
+	print("------------ delete server --------------> " .. server:getResourceUUID())
+	local userToken = getUserToken(server:getCustomerUUID())
+	userAPI:setSessionUser(userToken)
+	print('Deleting server: ' .. server:getResourceUUID())
+	userAPI:deleteResource(server:getResourceUUID(),true,nil)
 end
 
 function getServerList()
@@ -42,13 +50,20 @@ end
 function checkServer(server)
 	local dateHelper = new("FDLDateHelper")
 	local shutdownTimestamp = nil
+	local deleteServerTime = nil
 	for i = 0, server:getResourceKey():size() - 1, 1 do
 		if(server:getResourceKey():get(i):getName() == 'SHUTDOWN_AFTER') then
 			shutdownTimestamp = dateHelper:getTimestamp(server:getResourceCreateDate()) + tonumber(server:getResourceKey():get(i):getValue()) * 60 * 1000
+			deleteServerTime = shutdownTimestamp + 7*24*60*60*1000;
 		end
 	end
+
 	if(dateHelper:getTimestamp()>shutdownTimestamp) then
 		shutdownServer(server)
+	end
+
+	if(dateHelper:getTimestamp() > deleteServerTime) then
+		deleteServer(server)
 	end
 end
 

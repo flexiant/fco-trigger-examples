@@ -1,11 +1,11 @@
 -- (c) 2013 Flexiant Ltd
 -- Released under the Apache 2.0 Licence - see LICENCE for details
 
-function loggly_log_managment_trigger(p)
+function loggly_log_management_trigger(p)
 	if(p == nil) then
 		return {
-			ref = "loggly_log_managment_trigger",
-			name = "Loggly log managment Trigger",
+			ref = "loggly_log_management_trigger",
+			name = "Loggly log management Trigger",
 			description = "Independent logging mechanism done by loggly",
 			priority = 0,
 			triggerType = "POST_JOB_STATE_CHANGE",
@@ -15,20 +15,20 @@ function loggly_log_managment_trigger(p)
 		}
 	end
 
-	print("========== LOGGLY TRIGGER ACTIVATION ==========")
-	
-	local customerToken = checkBeKey(p.beUUID,'LOGGLY_CUSTOMER_TOKEN')
+	local customerToken = checkCustomerKey(p.input:getCustomerUUID(),'LOGGLY_CUSTOMER_TOKEN')
 	if(customerToken.success) then
+
+		print("========== LOGGLY TRIGGER ACTIVATION ==========")
+
 		local url = 'http://logs-01.loggly.com/inputs/' .. customerToken.keyValue
 		local params = getParams(p.input)
 		print('Sending log params to loggly.')
 		generate_http_request('',params,url)
-	else
-		print('Loggly Customer Token key not set!')
+
+		print("========== LOGGLY TRIGGER COMPLETE ==========")
+
 	end
-	
-	print("========== LOGGLY TRIGGER COMPLETE ==========")
-	
+
 	return { exitState = "SUCCESS" }
 end
 
@@ -44,15 +44,15 @@ function getParams(input)
 		job_status = input:getStatus():toString()
 	}
 	local jsonReturn = json:encode(output)
-	
+
 	return jsonReturn
 end
 
-function checkBeKey(beUUID, resourceKeyName)
+function checkCustomerKey(customerUUID, resourceKeyName)
 	local searchFilter = new("SearchFilter")
 	local filterCondition1 = new("FilterCondition")
 	filterCondition1:setField('resourceuuid')
-	filterCondition1:setValue({beUUID})
+	filterCondition1:setValue({customerUUID})
 	filterCondition1:setCondition(new("Condition","IS_EQUAL_TO"))
 	local filterCondition2 = new("FilterCondition")
 	filterCondition2:setField('resourcekey.name')
@@ -60,11 +60,11 @@ function checkBeKey(beUUID, resourceKeyName)
 	filterCondition2:setCondition(new("Condition","IS_EQUAL_TO"))
 	searchFilter:addCondition(filterCondition1)
 	searchFilter:addCondition(filterCondition2)
-	local billingEntity = adminAPI:listResources(searchFilter,nil,new("ResourceType","BILLING_ENTITY"))
-	if(billingEntity:getList():size() == 1) then
-		for i = 0, billingEntity:getList():get(0):getResourceKey():size() - 1, 1 do
-			if(billingEntity:getList():get(0):getResourceKey():get(i):getName() == resourceKeyName) then
-				return {success = true, keyValue = billingEntity:getList():get(0):getResourceKey():get(i):getValue() }
+	local customer = adminAPI:listResources(searchFilter,nil,new("ResourceType","CUSTOMER"))
+	if(customer:getList():size() == 1) then
+		for i = 0, customer:getList():get(0):getResourceKey():size() - 1, 1 do
+			if(customer:getList():get(0):getResourceKey():get(i):getName() == resourceKeyName) then
+				return {success = true, keyValue = customer:getList():get(0):getResourceKey():get(i):getValue() }
 			end
 		end
 	else
@@ -83,10 +83,10 @@ function generate_http_request(token,params,url)
 	local returnString = ""
 	local httpcode = ""
 	if (httpconn:post(params,
-	function (val)
-		returnString = returnString .. val
-		return true
-	end)
+			function (val)
+				returnString = returnString .. val
+				return true
+			end)
 	) then
 
 	else
@@ -95,11 +95,8 @@ function generate_http_request(token,params,url)
 		print('HTTPErrorMessage: ' .. message)
 	end
 	httpconn:disconnect()
-
-	local js = new ("JSON")
-	local jsonReturnString = js:decode(returnString)
 end
 
 function register()
-	return {"loggly_log_managment_trigger"}
+	return {"loggly_log_management_trigger"}
 end

@@ -1,0 +1,39 @@
+Auto Start
+	This trigger will automatically publish images if the customer key has been set, and it will apply image protections based on the other key set.
+Required Keys
+	Key 1
+		Key Type - Customer Key	
+		Resource - Customer
+		Key Name - AUTO_PUBLISH_IMAGE
+		Value - [Not Important]
+	Key 
+		Key Type - Customer Key	
+		Resource - Customer
+		Key Name - AUTO_PROTECT_IMAGE
+		Value - [Protection Key Value String*]
+		
+*Semicolon separated values of user permissions (All permissions are set to Yes, so you should only set one that you wish to set to No)
+All keys and values are case sensitive!
+e.g.
+	Can be detached: No; Can clone: No; Can snapshot: No;
+	
+All possible Keys (same as on FCO UI under Image Permissions):
+	Can be detached
+	Can be 2nd Disk
+	Can clone
+	Can console
+	Can create server
+	Can have additional disks
+	Can image
+	Can snapshot
+	Can start
+
+All possible values:
+	Yes
+	No
+
+
+
+	
+	
+
