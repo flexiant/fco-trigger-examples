@@ -18,7 +18,7 @@ function scheduled_create_snapshot_trigger(p)
 	print("======== SCHEDULED TRIGGER CREATE SNAPSHOT =========")
 	local serverList = getServersWithKey('AUTO_SNAPSHOTS')
 	for serverUUID,server in pairs(serverList) do
-		local newSnapshotDate = os.time()-server.snapshotTime*60*60*1000
+		local newSnapshotDate = p.timeStamp-server.snapshotTime*60*60*1000
 		local checkSnapshot = checkSnapshotDate(serverUUID,newSnapshotDate)
 		if(checkSnapshot) then
 			local userToken = getUserToken(server.customerUUID)
@@ -31,10 +31,10 @@ function scheduled_create_snapshot_trigger(p)
 	end
 	local diskList = getDisksWithKey('AUTO_SNAPSHOTS')
 	for diskUUID,disk in pairs(diskList) do
-		local newSnapshotDate = os.time()-disk.snapshotTime*60*60*1000
+		local newSnapshotDate = p.timeStamp-disk.snapshotTime*60*60*1000
 		local checkSnapshot = checkSnapshotDate(diskUUID,newSnapshotDate)
 		if(checkSnapshot) then
-			local userToken = getUserToken(server.customerUUID)
+			local userToken = getUserToken(disk.customerUUID)
 			userAPI:setSessionUser(userToken)
 			createNewSnapshot(disk.customerUUID, diskUUID, "DISK")
 			if(disk.maxSnapshots > 0) then
