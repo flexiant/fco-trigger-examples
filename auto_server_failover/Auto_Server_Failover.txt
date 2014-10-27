@@ -1,0 +1,10 @@
+Auto_Server_Failover
+
+To Activate the Plugin
+ 
+Install via the Admin Control Panel of your Flexiant Install, instructions for this are available online.
+You will need to add the following information to each live server and backup server
+Key Type                    Resource        Key Name       Value
+Customer Key                Server          LIVE_SERVER     1
+Customer Key                Server          BACKUP_SERVER   1
+Billing Entity		    Customer        AUTO_FAILOVER   1

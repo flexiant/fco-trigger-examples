@@ -1,0 +1,9 @@
+pre-set-unit-warning
+
+To Activate the Plugin
+
+Download from link above (right click and select save file)
+Install via the Admin Control Panel of your Flexiant Install, instructions for this are available online.
+You will need to add the following information to each Billing Entity that you wish to
+Key Type Resource Key Name Value
+Billing Entity Billing Entity SIGNUP_WARNING_SET 1
