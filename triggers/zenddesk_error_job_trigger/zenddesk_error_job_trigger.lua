@@ -31,7 +31,7 @@ function post_create_error_ticket(p)
 
 			local ticketBody = ""
 			ticketBody = ticketBody .. "Error happened on Job:" .. p.input:getJobType():toString() .. "\nJob UUID:" .. p.input:getResourceUUID() .. "\nJob Item ID:" .. p.input:getItemUUID()
-			local input = { ticket = { requester ={ name = p.input:getCustomerName() , email = p.user:getEmail()}, subject = p.input:getItemDescription(), comment = {body = ticketBody}, type = "problem"}, priority = priorityKeyValue}
+			local input = { ticket = { subject = p.input:getItemDescription(), comment = {body = ticketBody}, type = "problem"}, priority = priorityKeyValue}
 			local js = new ("JSON")
 			local params = js:encode(input)
 
